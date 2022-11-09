@@ -13,7 +13,7 @@ export interface AppState {
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-    router: routerReducer
+    router: routerReducer // statesKey
 };
 
 export function logger(reducer:ActionReducer<any>)
@@ -30,5 +30,5 @@ export function logger(reducer:ActionReducer<any>)
 
 export const metaReducers: MetaReducer<AppState>[] =
     !environment.production ? [logger] : [];
-
+//works only in development environment
 

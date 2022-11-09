@@ -4,10 +4,9 @@ import {CoursesState} from './reducers/course.reducers';
 import * as fromCourses from './reducers/course.reducers';
 
 
+// define feature selector:
 export const selectCoursesState =
     createFeatureSelector<CoursesState>("courses");
-
-
 
 export const selectAllCourses = createSelector(
     selectCoursesState,

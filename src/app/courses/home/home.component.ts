@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
 
     promoTotal$: Observable<number>;
 
+    // loading$: Observable<boolean>; - global loading indicator in app.comp
+
     beginnerCourses$: Observable<Course[]>;
 
     advancedCourses$: Observable<Course[]>;
@@ -28,6 +30,7 @@ export class HomeComponent implements OnInit {
 
     constructor(
       private dialog: MatDialog,
+      // private coursesHttpService: CoursesHttpService, - instead, get courses from the store:
       private store: Store<AppState>) {
 
     }
@@ -37,6 +40,32 @@ export class HomeComponent implements OnInit {
     }
 
   reload() {
+
+    //after getting data from the store, these are not necessary:
+
+    // const courses$ = this.coursesHttpService.findAllCourses()
+    //   .pipe(
+    //     map(courses => courses.sort(compareCourses)),
+    //     shareReplay()
+    //   );
+
+    // this.loading$ = courses$.pipe(map(courses => !!courses));
+
+    // this.beginnerCourses$ = courses$
+    //   .pipe(
+    //     map(courses => courses.filter(course => course.category == 'BEGINNER'))
+    //   );
+
+
+    // this.advancedCourses$ = courses$
+    //   .pipe(
+    //     map(courses => courses.filter(course => course.category == 'ADVANCED'))
+    //   );
+
+    // this.promoTotal$ = courses$
+    //     .pipe(
+    //         map(courses => courses.filter(course => course.promo).length)
+    //     );
 
         this.beginnerCourses$ = this.store.pipe(select(selectBeginnerCourses));
 

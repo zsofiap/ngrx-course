@@ -54,12 +54,12 @@ const routes: Routes = [
         MatToolbarModule,
         AuthModule.forRoot(),
         StoreModule.forRoot(reducers, {
-            metaReducers,
+            metaReducers, // eg.authReducer - performed before the other reducers performed
             runtimeChecks : {
-                strictStateImmutability: true,
-                strictActionImmutability: true,
-                strictActionSerializability: true,
-                strictStateSerializability:true
+              strictStateImmutability: true, // prevents from accidentally writing wrong reducers where we modify state instead of creating a new version of it
+              strictActionImmutability: true, // prevents from accidentally remove actions
+              strictActionSerializability: true, // actions are serializable - e.g. Date is not in JS
+              strictStateSerializability: true, // useful if we want to store the state of the store locally
             }
         }),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),

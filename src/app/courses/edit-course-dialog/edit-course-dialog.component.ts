@@ -30,6 +30,7 @@ export class EditCourseDialogComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<EditCourseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data,
+    // private coursesService: CoursesHttpService
     private store: Store<AppState>) {
 
     this.dialogTitle = data.dialogTitle;
@@ -66,6 +67,11 @@ export class EditCourseDialogComponent {
       ...this.course,
       ...this.form.value
     };
+
+    // this.coursesService.saveCourse(course.id, course)
+    //   .subscribe(
+    //     () => this.dialogRef.close()
+    //   )
 
     const update: Update<Course> = {
       id: course.id,

@@ -42,22 +42,35 @@ export class LoginComponent implements OnInit {
       const val = this.form.value;
 
       this.auth.login(val.email, val.password)
-          .pipe(
-              tap(user => {
+      .pipe(
+        tap(user => {
+          console.log('user:', user);
 
-                  console.log(user);
+          const newLoginAction = login({user});
 
-                  this.store.dispatch(login({user}));
+          // console.log('new login action:', newLoginAction);
 
-                  this.router.navigateByUrl('/courses');
+          // debugger;
 
-              })
-          )
-          .subscribe(
-              noop,
-              () => alert('Login Failed')
-          );
 
+          //save the user profile inside the store (also an observable, we can subscribe, but now we want to modify: dispatch is the only way for it)
+          this.store.dispatch(login({user})); //{user:user} - in ts, if the value of the property is the same as the name of it, it can be simplified to the value
+            // after login action is created in auth.actions, it is enough to call here and pass the user{
+            // type: 'Login Action', // ngrx action: an object that we send to the store to do some modification in the state
+            // payload: {            // the payload of the action is any data that the store might need in order to create a new version of its internal state (here: the user itself)
+              // userProfile: user - after createAction is auth.actions.ts: it can be simplified
+            //   user
+            // }
+          // }
+          // )
+
+          this.router.navigateByUrl('/courses');
+        })
+      )
+      .subscribe(
+        noop, // no operation if the login successful
+        () => alert('Login Failed')
+      );
 
 
   }
